@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Welcome, {{ user.username }}</h2>
+<p>Email: {{ user.email }}</p>
+<p>2FA status: {% if user.totp_enabled %}<strong style="color:green;">Enabled</strong>{% else %}<strong style="color:#b45309;">Not enabled</strong>{% endif %}</p>
+
+{% if not user.totp_enabled %}
+<a href="{{ url_for('setup_2fa') }}"><button type="button">Enable 2FA</button></a>
+{% endif %}
+
+<form method="GET" action="{{ url_for('logout') }}" style="margin-top: 15px;">
+    <button type="submit" style="background:#dc2626;">Log Out</button>
+</form>
+{% endblock %}
